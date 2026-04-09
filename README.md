@@ -1,16 +1,53 @@
-# React + Vite
+# NutriScan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NutriScan is a full-stack application that leverages artificial intelligence to identify food from photos and retrieve accurate macronutrient data. It also features a barcode scanner that extracts nutritional info using the OpenFoodFacts API.
 
-Currently, two official plugins are available:
+## Architecture
+- **Frontend**: React (Vite) + Tailwind CSS
+- **Backend**: Python (FastAPI) + PyTorch / Transformers (HuggingFace `nateraw/food` model)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## How to Run
 
-## React Compiler
+### 1. Backend Setup
+1. Open a new terminal and navigate to the `backend` folder:
+   ```bash
+   cd backend
+   ```
+2. (Optional but recommended) Create and activate a Python virtual environment:
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On Mac/Linux:
+   source venv/bin/activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+*(Note: The first time you start the backend and make a request, the AI model weights will be downloaded from huggingface, which may take a few minutes.)*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Frontend Setup
+1. Open a second terminal and navigate to the `frontend` folder:
+   ```bash
+   cd frontend
+   ```
+2. Install Node dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development server:
+   ```bash
+   npm run dev
+   ```
+4. Open the displayed local URL (typically `http://localhost:5173`) in your browser to use NutriScan!
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+- **Upload Image**: Drag or select food imagery from your filesystem.
+- **Webcam Capture**: Live camera feed to take photos directly in the browser.
+- **Barcode Scanner**: Present a barcode to the camera to get instant packaged food details.
+- **Macros Display**: Dynamically updates UI to show Calories, Protein, Carbs, and Fats.
